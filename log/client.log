@@ -1,0 +1,41 @@
+[ 2026-06-21 20:11:48,702 ] Using spritesheet cache size of 910
+[ 2026-06-21 20:11:50,336 ] Asset loading complete
+[ 2026-06-21 20:11:51,066 ] Client is started for first the time.
+[ 2026-06-21 20:11:51,191 ] QObject: Cannot create children for a parent that is in a different thread.
+(Parent is QQmlEngine(0x1b7aa912a30), parent's thread is QThread(0x1b7a7b09b90), current thread is QSGRenderThread(0x1b7af1f8190)
+[ 2026-06-21 20:46:12,509 ] Using spritesheet cache size of 910
+[ 2026-06-21 20:46:19,610 ] Asset loading complete
+[ 2026-06-21 20:46:20,617 ] QObject: Cannot create children for a parent that is in a different thread.
+(Parent is QQmlEngine(0x181319decd0), parent's thread is QThread(0x1812ea38f20), current thread is QSGRenderThread(0x181362b0b80)
+[ 2026-06-21 21:25:50,277 ] Using spritesheet cache size of 910
+[ 2026-06-21 21:25:57,534 ] Asset loading complete
+[ 2026-06-21 21:25:58,442 ] QObject: Cannot create children for a parent that is in a different thread.
+(Parent is QQmlEngine(0x1be6310a600), parent's thread is QThread(0x1be601fc080), current thread is QSGRenderThread(0x1be759c5680)
+[ 2026-06-21 21:26:52,338 ] Start playing( V2: false , V3: true  )
+[ 2026-06-21 21:50:58,392 ] Using spritesheet cache size of 910
+[ 2026-06-21 21:51:09,781 ] Asset loading complete
+[ 2026-06-21 21:51:13,121 ] QObject: Cannot create children for a parent that is in a different thread.
+(Parent is QQmlEngine(0x1d00e8e56c0), parent's thread is QThread(0x1d00b97e1a0), current thread is QSGRenderThread(0x1d01314c590)
+[ 2026-06-21 21:51:20,074 ] qrc:/qt/qml/qmlcomponents/qml/createaccountandcharacter/CreateAccountDialog.qml:411:15 Parameter "link" is not declared. Injection of parameters into signal handlers is deprecated. Use JavaScript functions with formal parameters instead.
+[ 2026-06-21 21:51:45,353 ] Start playing( V2: false , V3: false  )
+[ 2026-06-21 21:58:19,114 ] BattlEye: "Initialized (v1.249)"
+[ 2026-06-21 21:58:19,114 ] BattlEye: "Restarting client is necessary, service isn't running properly"
+[ 2026-06-21 21:58:19,114 ] BattlEye: "Restarting client is necessary, update required"
+[ 2026-06-21 21:58:19,114 ] BattlEye: "Config entry: GameID tibia"
+[ 2026-06-21 21:58:19,114 ] BattlEye: "Config entry: MasterPort 7171"
+[ 2026-06-21 21:58:19,287 ] Request connection to gameserver  "tcp://127.0.0.1:7172"  (unprotected:  "tcp://127.0.0.1:7172" )  requested (Charakter "Lol Gamer" )
+[ 2026-06-21 21:58:19,295 ] Request connection to gameserver  "tcp://127.0.0.1:7172" "FazendoTibia"
+[ 2026-06-21 21:58:19,314 ] Connected to gameserver  "tcp://127.0.0.1:7172" "FazendoTibia"
+[ 2026-06-21 21:59:41,871 ] Using spritesheet cache size of 910
+[ 2026-06-21 21:59:43,375 ] Asset loading complete
+[ 2026-06-21 21:59:44,390 ] QObject: Cannot create children for a parent that is in a different thread.
+(Parent is QQmlEngine(0x1cbbd135490), parent's thread is QThread(0x1cbba0e88b0), current thread is QSGRenderThread(0x1cbcf904c60)
+[ 2026-06-21 22:00:28,788 ] Start playing( V2: false , V3: false  )
+[ 2026-06-21 22:00:36,587 ] BattlEye: "Initialized (v1.249)"
+[ 2026-06-21 22:00:36,588 ] BattlEye: "Restarting client is necessary, service isn't running properly"
+[ 2026-06-21 22:00:36,588 ] BattlEye: "Restarting client is necessary, update required"
+[ 2026-06-21 22:00:36,588 ] BattlEye: "Config entry: GameID tibia"
+[ 2026-06-21 22:00:36,588 ] BattlEye: "Config entry: MasterPort 7171"
+[ 2026-06-21 22:00:36,729 ] Request connection to gameserver  "tcp://127.0.0.1:7172"  (unprotected:  "tcp://127.0.0.1:7172" )  requested (Charakter "Puto" )
+[ 2026-06-21 22:00:36,735 ] Request connection to gameserver  "tcp://127.0.0.1:7172" "FazendoTibia"
+[ 2026-06-21 22:00:36,750 ] Connected to gameserver  "tcp://127.0.0.1:7172" "FazendoTibia"

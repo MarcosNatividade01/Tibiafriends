@@ -1,0 +1,22 @@
+FAZENDOTIBIA - PRONTO PARA JOGAR COM AMIGOS
+
+NO COMPUTADOR DO SERVIDOR:
+1. Abra "LIGAR SERVIDOR" uma vez.
+2. Deixe o computador e o servidor ligados enquanto todos jogam.
+
+NO COMPUTADOR DE CADA JOGADOR:
+1. Abra "JOGAR".
+2. Use a opcao de criar conta/personagem dentro do cliente.
+3. Entre usando o e-mail e a senha cadastrados.
+
+O atalho "CRIAR PERSONAGEM" continua disponivel como alternativa pelo site.
+
+O botao JOGAR instala automaticamente o mapa completamente revelado.
+
+Servidor configurado: 177.192.12.76
+Site: http://177.192.12.76/
+Portas necessarias: TCP 80, 7171 e 7172.
+
+O banco MySQL ja existe no computador servidor e e iniciado automaticamente.
+Se um amigo nao conectar, o roteador precisa encaminhar as portas acima para
+192.168.0.250 e o Firewall do Windows precisa permitir essas portas.
