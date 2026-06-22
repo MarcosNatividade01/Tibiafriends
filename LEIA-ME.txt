@@ -9,6 +9,9 @@ NO COMPUTADOR DE CADA JOGADOR:
 2. Use a opcao de criar conta/personagem dentro do cliente.
 3. Entre usando o e-mail e a senha cadastrados.
 
+Na primeira execucao, o JOGAR prepara automaticamente um arquivo grande do
+cliente. Sempre inicie pelo JOGAR, sem abrir os executaveis da pasta bin.
+
 O atalho "CRIAR PERSONAGEM" continua disponivel como alternativa pelo site.
 
 O botao JOGAR instala automaticamente o mapa completamente revelado.
