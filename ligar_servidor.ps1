@@ -1,8 +1,10 @@
 $ErrorActionPreference = 'Stop'
 
-$serverRoot = 'C:\Projetos\otserv - Tibia'
+$serverRoot = Join-Path $PSScriptRoot 'server'
 $serverExe = Join-Path $serverRoot 'crystalserver.exe'
 $serverConfig = Join-Path $serverRoot 'config.lua'
+$serverPackageUrl = 'https://github.com/MarcosNatividade01/Tibiafriends/releases/latest/download/crystalserver-runtime.zip'
+$serverPackageName = 'crystalserver-runtime.zip'
 $mysqlLauncher = 'C:\xampp\mysql_start.bat'
 $apacheLauncher = 'C:\xampp\apache_start.bat'
 $publicAddress = '177.192.12.76'
@@ -34,8 +36,39 @@ function Wait-ForPort {
     return $false
 }
 
+function Install-ServerRuntime {
+    if ((Test-Path -LiteralPath $serverExe) -and (Test-Path -LiteralPath $serverConfig)) { return }
+
+    Write-Host 'Servidor CrystalServer nao encontrado nesta pasta.' -ForegroundColor Yellow
+    Write-Host 'Baixando CrystalServer do GitHub. Isso pode demorar na primeira vez...'
+
+    $downloadPath = Join-Path $PSScriptRoot $serverPackageName
+    $extractPath = Join-Path $PSScriptRoot '_server_extract'
+
+    if (Test-Path -LiteralPath $downloadPath) { Remove-Item -LiteralPath $downloadPath -Force }
+    if (Test-Path -LiteralPath $extractPath) { Remove-Item -LiteralPath $extractPath -Recurse -Force }
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Invoke-WebRequest -Uri $serverPackageUrl -OutFile $downloadPath -UseBasicParsing
+
+    Write-Host 'Extraindo CrystalServer...'
+    Expand-Archive -LiteralPath $downloadPath -DestinationPath $extractPath -Force
+
+    $extractedExe = Join-Path $extractPath 'crystalserver.exe'
+    $extractedConfig = Join-Path $extractPath 'config.lua'
+    if (-not ((Test-Path -LiteralPath $extractedExe) -and (Test-Path -LiteralPath $extractedConfig))) {
+        throw 'O pacote baixado nao contem crystalserver.exe e config.lua na raiz.'
+    }
+
+    if (Test-Path -LiteralPath $serverRoot) { Remove-Item -LiteralPath $serverRoot -Recurse -Force }
+    Move-Item -LiteralPath $extractPath -Destination $serverRoot
+    Remove-Item -LiteralPath $downloadPath -Force
+}
+
 try {
     Write-Host 'Ligando o FazendoTibia...' -ForegroundColor Cyan
+
+    Install-ServerRuntime
 
     foreach ($required in @($serverExe, $serverConfig, $mysqlLauncher, $apacheLauncher)) {
         if (-not (Test-Path -LiteralPath $required)) { throw "Arquivo nao encontrado: $required" }

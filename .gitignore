@@ -1,2 +1,6 @@
 bin/Qt6WebEngineCore.dll
 bin/Qt6WebEngineCore.dll.tmp
+
+server/
+_server_extract/
+crystalserver-runtime.zip
