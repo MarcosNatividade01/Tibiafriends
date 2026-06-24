@@ -104,11 +104,28 @@ function Write-PortableConfigs {
 "@
     Set-Content -LiteralPath $siteConfig -Value $siteConfigText -Encoding ASCII
 
-    $phpIniSource = Join-Path $phpRoot 'php.ini'
-    $phpIniText = Get-Content -LiteralPath $phpIniSource -Raw
     $phpExtDir = (Join-Path $phpRoot 'ext') -replace '\\', '/'
-    $phpIniText = $phpIniText -replace '(?m)^\s*;?\s*extension_dir\s*=.*$', "extension_dir=`"$phpExtDir`""
-    $phpIniText = $phpIniText -replace '(?m)^\s*;\s*extension\s*=\s*(mysqli|pdo_mysql|openssl|mbstring|curl|gd2|fileinfo)\s*$', 'extension=$1'
+    $phpSessionDir = Join-Path $runtimeRoot 'php-sessions'
+    if (-not (Test-Path -LiteralPath $phpSessionDir)) { New-Item -ItemType Directory -Path $phpSessionDir | Out-Null }
+    $phpSessionPath = $phpSessionDir -replace '\\', '/'
+    $phpIniText = @"
+[PHP]
+extension_dir="$phpExtDir"
+extension=curl
+extension=fileinfo
+extension=gd2
+extension=mbstring
+extension=mysqli
+extension=openssl
+extension=pdo_mysql
+date.timezone=America/Sao_Paulo
+default_charset=UTF-8
+memory_limit=256M
+upload_max_filesize=32M
+post_max_size=32M
+max_execution_time=60
+session.save_path="$phpSessionPath"
+"@
     Set-Content -LiteralPath $phpIni -Value $phpIniText -Encoding ASCII
 
     $baseDir = $mysqlRoot -replace '\\', '/'
