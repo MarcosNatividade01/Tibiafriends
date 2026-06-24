@@ -146,7 +146,7 @@ function Ensure-PortableDatabase {
 
     if (-not (Wait-ForPort -HostName '127.0.0.1' -Port 3306 -TimeoutSeconds 1)) {
         Write-Host 'Iniciando banco de dados portatil...'
-        Start-Process -FilePath $mysqldExe -ArgumentList @("--defaults-file=$mysqlIni", '--console') -WorkingDirectory $mysqlRoot -WindowStyle Hidden
+        Start-Process -FilePath $mysqldExe -ArgumentList @("`"--defaults-file=$mysqlIni`"", '--console') -WorkingDirectory $mysqlRoot -WindowStyle Hidden
     }
     if (-not (Wait-ForPort -HostName '127.0.0.1' -Port 3306 -TimeoutSeconds 45)) {
         throw 'O banco de dados portatil nao abriu a porta 3306.'
