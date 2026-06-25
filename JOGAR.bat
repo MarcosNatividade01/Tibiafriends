@@ -2,6 +2,8 @@
 setlocal
 cd /d "%~dp0"
 
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0atualizar.ps1"
+
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0preparar_cliente.ps1"
 if errorlevel 1 (
     pause

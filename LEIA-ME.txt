@@ -2,18 +2,21 @@ FAZENDOTIBIA - PRONTO PARA JOGAR COM AMIGOS
 
 NO COMPUTADOR DO SERVIDOR:
 1. Abra "LIGAR SERVIDOR" uma vez.
-2. Na primeira vez, ele baixa o CrystalServer, MySQL e site portateis do GitHub.
-3. Deixe o computador e o servidor ligados enquanto todos jogam.
+2. Ele procura atualizacoes no GitHub automaticamente antes de ligar.
+3. Na primeira vez, ele baixa o CrystalServer, MySQL e site portateis do GitHub.
+4. Deixe o computador e o servidor ligados enquanto todos jogam.
 
 NO COMPUTADOR DE CADA JOGADOR:
 1. Abra "JOGAR".
-2. Use a opcao de criar conta/personagem dentro do cliente.
-3. Entre usando o e-mail e a senha cadastrados.
+2. Ele procura atualizacoes no GitHub automaticamente antes de abrir.
+3. Use a opcao de criar conta/personagem dentro do cliente.
+4. Entre usando o e-mail e a senha cadastrados.
 
 Na primeira execucao, o JOGAR prepara automaticamente um arquivo grande do
 cliente. Sempre inicie pelo JOGAR, sem abrir os executaveis da pasta bin.
 
 O atalho "CRIAR PERSONAGEM" continua disponivel como alternativa pelo site.
+O atalho "ATUALIZAR" pode ser usado para forcar a verificacao de atualizacao.
 
 O botao JOGAR instala automaticamente o mapa completamente revelado.
 
