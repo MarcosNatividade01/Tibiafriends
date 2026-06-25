@@ -4,7 +4,9 @@ $serverRoot = Join-Path $PSScriptRoot 'server'
 $serverExe = Join-Path $serverRoot 'crystalserver.exe'
 $serverConfig = Join-Path $serverRoot 'config.lua'
 $serverPackageUrl = 'https://github.com/MarcosNatividade01/Tibiafriends/releases/latest/download/crystalserver-runtime.zip'
+$serverVersionUrl = 'https://github.com/MarcosNatividade01/Tibiafriends/releases/latest/download/crystalserver-runtime.version'
 $serverPackageName = 'crystalserver-runtime.zip'
+$serverVersionName = 'crystalserver-runtime.version'
 $publicAddress = '177.192.12.76'
 
 $runtimeRoot = Join-Path $serverRoot 'runtime'
@@ -54,17 +56,46 @@ function Invoke-MySql {
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao executar comando no MySQL portatil.' }
 }
 
-function Install-ServerRuntime {
-    if ((Test-Path -LiteralPath $serverExe) -and (Test-Path -LiteralPath $serverConfig)) { return }
+function Get-RemoteServerVersion {
+    try {
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        $response = Invoke-WebRequest -Uri $serverVersionUrl -UseBasicParsing
+        return $response.Content.Trim()
+    } catch {
+        Write-Host 'Nao foi possivel consultar a versao online do servidor. Continuando com os arquivos locais...' -ForegroundColor Yellow
+        return $null
+    }
+}
 
-    Write-Host 'Servidor CrystalServer nao encontrado nesta pasta.' -ForegroundColor Yellow
+function Install-ServerRuntime {
+    $localVersionPath = Join-Path $serverRoot $serverVersionName
+    $hasServer = (Test-Path -LiteralPath $serverExe) -and (Test-Path -LiteralPath $serverConfig)
+    $remoteVersion = Get-RemoteServerVersion
+
+    if ($hasServer -and $remoteVersion) {
+        $localVersion = ''
+        if (Test-Path -LiteralPath $localVersionPath) {
+            $localVersion = (Get-Content -LiteralPath $localVersionPath -Raw).Trim()
+        }
+
+        if ($localVersion -eq $remoteVersion) { return }
+
+        Write-Host 'Atualizacao do servidor encontrada no GitHub.' -ForegroundColor Yellow
+    } elseif ($hasServer) {
+        return
+    } else {
+        Write-Host 'Servidor CrystalServer nao encontrado nesta pasta.' -ForegroundColor Yellow
+    }
+
     Write-Host 'Baixando CrystalServer do GitHub. Isso pode demorar na primeira vez...'
 
     $downloadPath = Join-Path $PSScriptRoot $serverPackageName
     $extractPath = Join-Path $PSScriptRoot '_server_extract'
+    $preservedMysqlData = Join-Path $PSScriptRoot '_mysql_data_preserve'
 
     if (Test-Path -LiteralPath $downloadPath) { Remove-Item -LiteralPath $downloadPath -Force }
     if (Test-Path -LiteralPath $extractPath) { Remove-Item -LiteralPath $extractPath -Recurse -Force }
+    if (Test-Path -LiteralPath $preservedMysqlData) { Remove-Item -LiteralPath $preservedMysqlData -Recurse -Force }
 
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest -Uri $serverPackageUrl -OutFile $downloadPath -UseBasicParsing
@@ -78,8 +109,25 @@ function Install-ServerRuntime {
         throw 'O pacote baixado nao contem crystalserver.exe e config.lua na raiz.'
     }
 
+    if (Test-Path -LiteralPath $mysqlData) {
+        Move-Item -LiteralPath $mysqlData -Destination $preservedMysqlData
+    }
+
     if (Test-Path -LiteralPath $serverRoot) { Remove-Item -LiteralPath $serverRoot -Recurse -Force }
     Move-Item -LiteralPath $extractPath -Destination $serverRoot
+
+    if (Test-Path -LiteralPath $preservedMysqlData) {
+        $restoredMysqlRoot = Join-Path $serverRoot 'runtime'
+        if (-not (Test-Path -LiteralPath $restoredMysqlRoot)) { New-Item -ItemType Directory -Path $restoredMysqlRoot | Out-Null }
+        $newMysqlData = Join-Path $restoredMysqlRoot 'mysql-data'
+        if (Test-Path -LiteralPath $newMysqlData) { Remove-Item -LiteralPath $newMysqlData -Recurse -Force }
+        Move-Item -LiteralPath $preservedMysqlData -Destination $newMysqlData
+    }
+
+    if ($remoteVersion) {
+        Set-Content -LiteralPath (Join-Path $serverRoot $serverVersionName) -Value $remoteVersion -Encoding ASCII
+    }
+
     Remove-Item -LiteralPath $downloadPath -Force
 }
 
