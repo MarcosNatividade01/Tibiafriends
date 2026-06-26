@@ -22,6 +22,8 @@ $phpExe = Join-Path $phpRoot 'php.exe'
 $phpIni = Join-Path $phpRoot 'php-portable.ini'
 $htdocsRoot = Join-Path $runtimeRoot 'htdocs'
 $siteConfig = Join-Path $htdocsRoot 'config.local.php'
+$assetsRoot = Join-Path $PSScriptRoot 'assets'
+$minimapRoot = Join-Path $PSScriptRoot 'minimap'
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = [Security.Principal.WindowsPrincipal]::new($identity)
@@ -54,6 +56,38 @@ function Invoke-MySql {
     param([string[]]$Arguments)
     & $mysqlExe @('--protocol=tcp', '--host=127.0.0.1', '--port=3306', '--user=root') @Arguments
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao executar comando no MySQL portatil.' }
+}
+
+function Sync-RevealedMinimap {
+    if (-not (Test-Path -LiteralPath $assetsRoot)) {
+        Write-Host 'Pasta assets nao encontrada. Continuando sem atualizar o minimap...' -ForegroundColor Yellow
+        return
+    }
+
+    $minimapFiles = Get-ChildItem -LiteralPath $assetsRoot -Filter 'Minimap_*.png' -File -ErrorAction SilentlyContinue
+    if (-not $minimapFiles) {
+        Write-Host 'Minimap global nao encontrado em assets. Continuando com o minimap local...' -ForegroundColor Yellow
+        return
+    }
+
+    if (-not (Test-Path -LiteralPath $minimapRoot)) {
+        New-Item -ItemType Directory -Path $minimapRoot | Out-Null
+    }
+
+    $copied = 0
+    foreach ($file in $minimapFiles) {
+        $target = Join-Path $minimapRoot $file.Name
+        if (-not (Test-Path -LiteralPath $target)) {
+            Copy-Item -LiteralPath $file.FullName -Destination $target
+            $copied++
+        }
+    }
+
+    if ($copied -gt 0) {
+        Write-Host "Minimap global revelado: $copied arquivos adicionados." -ForegroundColor Green
+    } else {
+        Write-Host 'Minimap global ja esta revelado nesta pasta.' -ForegroundColor Green
+    }
 }
 
 function Update-RepositoryFromGitHub {
@@ -296,6 +330,7 @@ try {
     Write-Host 'Ligando o FazendoTibia...' -ForegroundColor Cyan
 
     Update-RepositoryFromGitHub
+    Sync-RevealedMinimap
     Install-ServerRuntime
 
     foreach ($required in @($serverExe, $serverConfig, $mysqlInstallExe, $mysqldExe, $mysqlExe, $phpExe, $htdocsRoot)) {
