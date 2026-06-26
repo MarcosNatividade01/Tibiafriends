@@ -71,8 +71,25 @@ function Update-RepositoryFromGitHub {
     Write-Host 'Verificando atualizacoes no GitHub...'
     Push-Location $PSScriptRoot
     try {
-        & $git.Source pull --ff-only origin main
+        & $git.Source fetch --prune origin main
         if ($LASTEXITCODE -ne 0) {
+            Write-Host 'Nao foi possivel consultar o GitHub. Continuando com os arquivos locais...' -ForegroundColor Yellow
+            return
+        }
+
+        $localCommit = (& $git.Source rev-parse HEAD).Trim()
+        $remoteCommit = (& $git.Source rev-parse origin/main).Trim()
+
+        if ($localCommit -eq $remoteCommit) {
+            Write-Host 'Arquivos locais ja estao atualizados com o GitHub.' -ForegroundColor Green
+            return
+        }
+
+        Write-Host 'Atualizacao encontrada no GitHub. Baixando arquivos...'
+        & $git.Source pull --ff-only origin main
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host 'Arquivos atualizados pelo GitHub com sucesso.' -ForegroundColor Green
+        } else {
             Write-Host 'Nao foi possivel atualizar automaticamente pelo GitHub. Continuando com os arquivos locais...' -ForegroundColor Yellow
         }
     } finally {
@@ -86,7 +103,7 @@ function Get-RemoteServerVersion {
         $response = Invoke-WebRequest -Uri $serverVersionUrl -UseBasicParsing
         return $response.Content.Trim()
     } catch {
-        Write-Host 'Nao foi possivel consultar a versao online do servidor. Continuando com os arquivos locais...' -ForegroundColor Yellow
+        Write-Host 'Nao foi possivel consultar a versao online do pacote runtime do servidor. Continuando com o runtime local...' -ForegroundColor Yellow
         return $null
     }
 }
