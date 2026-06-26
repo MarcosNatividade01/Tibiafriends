@@ -271,6 +271,12 @@ function Ensure-PortableDatabase {
         Invoke-MySql -Arguments @('-e', 'CREATE DATABASE IF NOT EXISTS otserv CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;')
         Invoke-MySql -Arguments @('otserv', "--execute=source $((Join-Path $serverRoot 'otserv.sql') -replace '\\', '/')")
     }
+
+    $grantCoinsSql = Join-Path $serverRoot 'grant_tibia_coins.sql'
+    if (Test-Path -LiteralPath $grantCoinsSql) {
+        Write-Host 'Garantindo Tibia Coins nas contas...'
+        Invoke-MySql -Arguments @('otserv', "--execute=source $(($grantCoinsSql) -replace '\\', '/')")
+    }
 }
 
 function Ensure-PortableSite {

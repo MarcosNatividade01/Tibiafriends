@@ -51,7 +51,7 @@ CREATE TABLE `accounts` (
   `lastday` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `type` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
   `coins` int(12) UNSIGNED NOT NULL DEFAULT 99999999,
-  `coins_transferable` int(12) UNSIGNED NOT NULL DEFAULT 0,
+  `coins_transferable` int(12) UNSIGNED NOT NULL DEFAULT 99999999,
   `tournament_coins` int(12) UNSIGNED NOT NULL DEFAULT 0,
   `creation` int(11) UNSIGNED NOT NULL DEFAULT 0,
   `recruiter` int(6) DEFAULT 0,
@@ -64,8 +64,8 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `name`, `password`, `email`, `created`, `rlname`, `location`, `country`, `web_lastlogin`, `web_flags`, `email_hash`, `email_new`, `email_new_time`, `email_code`, `email_next`, `email_verified`, `phone`, `key`, `premdays`, `premdays_purchased`, `lastday`, `type`, `coins`, `coins_transferable`, `tournament_coins`, `creation`, `recruiter`, `house_bid_id`, `vote`) VALUES
-(1, 'god', '21298df8a3277357ee55b01df9530b535cf08ec1', '@god', 0, '', '', '', 0, 3, '', '', 0, '', 0, 0, NULL, '', 359, 360, 1797468388, 6, 0, 996099, 0, 1766344573, 0, 0, 0),
-(2, 'sdfsdf', 'dfdsfdf', 'admin@gmail.com', 1766362992, '', '', 'us', 0, 0, '', '', 0, '', 0, 0, NULL, '', 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+(1, 'god', '21298df8a3277357ee55b01df9530b535cf08ec1', '@god', 0, '', '', '', 0, 3, '', '', 0, '', 0, 0, NULL, '', 359, 360, 1797468388, 6, 99999999, 99999999, 0, 1766344573, 0, 0, 0),
+(2, 'sdfsdf', 'dfdsfdf', 'admin@gmail.com', 1766362992, '', '', 'us', 0, 0, '', '', 0, '', 0, 0, NULL, '', 0, 0, 0, 1, 99999999, 99999999, 0, 0, 0, 0, 0);
 
 --
 -- Triggers `accounts`
