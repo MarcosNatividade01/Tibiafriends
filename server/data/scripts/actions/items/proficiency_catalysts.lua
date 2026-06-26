@@ -6,6 +6,13 @@ local config = {
 local proficiencyCatalysts = Action()
 
 function proficiencyCatalysts.onUse(player, item, fromPosition, target, toPosition, isHotkey)
+	local now = os.time()
+	local nextUse = player:kv():get("proficiency-catalyst-delay") or 0
+	if nextUse > now then
+		player:sendCancelMessage("Wait a moment before using another proficiency catalyst.")
+		return true
+	end
+
 	if not target or type(target) ~= "userdata" or not target:isItem() then
 		return false
 	end
@@ -21,6 +28,7 @@ function proficiencyCatalysts.onUse(player, item, fromPosition, target, toPositi
 			return false
 		end
 
+		player:kv():set("proficiency-catalyst-delay", now + 3)
 		player:sendWeaponProficiencyExperience(target:getId(), configData.gainWeaponProficiencyExperience)
 
 		item:remove(1)
