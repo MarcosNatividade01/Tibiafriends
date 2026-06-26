@@ -381,7 +381,7 @@ toggleImbuementNonAggressiveFightOnly = false
 -- NOTE: Only quests that are in the "freequests.lua" script table will work
 -- toggleFreeQuest = enable/disable the system
 -- freeQuestStage = if you add more quests to the table, change this value to run freeQuest again
-toggleFreeQuest = true
+toggleFreeQuest = false
 freeQuestStage = 1
 
 -- Deaths
@@ -609,7 +609,7 @@ bossDefaultTimeToFightAgain = 0 -- no cooldown
 bossDefaultTimeToDefeat = 30 * 60 -- 30 minutes
 
 -- Monsters
-defaultRespawnTime = 30
+defaultRespawnTime = 60
 deSpawnRange = 2
 deSpawnRadius = 50
 

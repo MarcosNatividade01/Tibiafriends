@@ -56,6 +56,30 @@ function Invoke-MySql {
     if ($LASTEXITCODE -ne 0) { throw 'Falha ao executar comando no MySQL portatil.' }
 }
 
+function Update-RepositoryFromGitHub {
+    $git = Get-Command git.exe -ErrorAction SilentlyContinue
+    if (-not $git) {
+        Write-Host 'Git nao encontrado. Continuando sem atualizar a pasta pelo GitHub...' -ForegroundColor Yellow
+        return
+    }
+
+    if (-not (Test-Path -LiteralPath (Join-Path $PSScriptRoot '.git'))) {
+        Write-Host 'Esta pasta nao parece ser um repositorio Git. Continuando sem git pull...' -ForegroundColor Yellow
+        return
+    }
+
+    Write-Host 'Verificando atualizacoes no GitHub...'
+    Push-Location $PSScriptRoot
+    try {
+        & $git.Source pull --ff-only origin main
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host 'Nao foi possivel atualizar automaticamente pelo GitHub. Continuando com os arquivos locais...' -ForegroundColor Yellow
+        }
+    } finally {
+        Pop-Location
+    }
+}
+
 function Get-RemoteServerVersion {
     try {
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
@@ -248,6 +272,7 @@ function Ensure-PortableSite {
 try {
     Write-Host 'Ligando o FazendoTibia...' -ForegroundColor Cyan
 
+    Update-RepositoryFromGitHub
     Install-ServerRuntime
 
     foreach ($required in @($serverExe, $serverConfig, $mysqlInstallExe, $mysqldExe, $mysqlExe, $phpExe, $htdocsRoot)) {
