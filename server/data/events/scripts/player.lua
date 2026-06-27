@@ -500,7 +500,7 @@ function Player:onGainExperience(target, exp, rawExp)
 				or equippedWeaponType == WEAPON_WAND
 				or equippedWeaponType == WEAPON_MISSILE
 				or equippedWeaponType == WEAPON_FIST then
-				local proficiencyExperience = math.min(math.floor((rawExp or exp) * 3), 25000)
+				local proficiencyExperience = math.floor(rawExp or exp)
 				if proficiencyExperience > 0 then
 					self:sendWeaponProficiencyExperience(weapon:getId(), proficiencyExperience)
 				end

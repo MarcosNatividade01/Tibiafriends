@@ -24,7 +24,7 @@ spell:vocation("knight;true", "elite knight;true", "paladin;true", "royal paladi
 spell:castSound(SOUND_EFFECT_TYPE_SPELL_INTENSE_RECOVERY)
 spell:id(160)
 spell:cooldown(cooldown)
-spell:groupCooldown(1000)
+spell:groupCooldown(500)
 spell:level(100)
 spell:mana(165)
 spell:isSelfTarget(true)

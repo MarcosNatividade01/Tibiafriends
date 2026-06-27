@@ -13,7 +13,7 @@ spell:castSound(SOUND_EFFECT_TYPE_SPELL_SUMMON_MONK_FAMILIAR)
 spell:level(200)
 spell:mana(1500)
 spell:cooldown(0) -- calculated in CreateFamiliarSpell
-spell:groupCooldown(2 * 1000)
+spell:groupCooldown(1000)
 spell:isAggressive(false)
 spell:vocation("monk;true", "exalted monk;true")
 spell:register()

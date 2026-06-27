@@ -13,7 +13,7 @@ spell:castSound(SOUND_EFFECT_TYPE_SPELL_SUMMON_PALADIN_FAMILIAR)
 spell:level(200)
 spell:mana(2000)
 spell:cooldown(0) -- calculated in CreateFamiliarSpell
-spell:groupCooldown(2 * 1000)
+spell:groupCooldown(1000)
 spell:isAggressive(false)
 spell:vocation("paladin;true", "royal paladin;true")
 spell:register()
