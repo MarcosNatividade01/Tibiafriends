@@ -186,6 +186,11 @@ function playerLoginGlobal.onLogin(player)
 	player:registerEvent("DropLoot")
 	player:registerEvent("BossParticipation")
 	player:registerEvent("UpdatePlayerOnAdvancedLevel")
+	-- Weapon proficiency must only advance from monster kills.
+	-- Remove the old timed/equipped proficiency event if the core registered it before this update.
+	pcall(function()
+		player:unregisterEvent("SoloProficiencyBoost")
+	end)
 	return true
 end
 
