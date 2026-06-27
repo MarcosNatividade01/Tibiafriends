@@ -588,7 +588,7 @@ rateSoulRegen = 1.5
 rateSoulRegenSpeed = 1.0
 
 rateSpellCooldown = 1.0
-rateAttackSpeed = 1.0
+rateAttackSpeed = 2.0
 rateOfflineTrainingSpeed = rateAttackSpeed
 rateExerciseTrainingSpeed = rateAttackSpeed
 
