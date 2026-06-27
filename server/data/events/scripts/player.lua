@@ -488,26 +488,6 @@ function Player:onGainExperience(target, exp, rawExp)
 		return exp
 	end
 
-	local weapon = self:getSlotItem(CONST_SLOT_LEFT)
-	if weapon then
-		local weaponType = weapon:getType()
-		if weaponType then
-			local equippedWeaponType = weaponType:getWeaponType()
-			if equippedWeaponType == WEAPON_SWORD
-				or equippedWeaponType == WEAPON_CLUB
-				or equippedWeaponType == WEAPON_AXE
-				or equippedWeaponType == WEAPON_DISTANCE
-				or equippedWeaponType == WEAPON_WAND
-				or equippedWeaponType == WEAPON_MISSILE
-				or equippedWeaponType == WEAPON_FIST then
-				local proficiencyExperience = math.floor(rawExp or exp)
-				if proficiencyExperience > 0 then
-					self:sendWeaponProficiencyExperience(weapon:getId(), proficiencyExperience)
-				end
-			end
-		end
-	end
-
 	-- Soul regeneration
 	local vocation = self:getVocation()
 	if self:getSoul() < vocation:getMaxSoul() and exp >= self:getLevel() then
