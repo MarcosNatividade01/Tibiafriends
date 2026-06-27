@@ -5,11 +5,11 @@ local function formulaFunction(player, level, maglevel)
 end
 
 function onGetFormulaValues(player, level, maglevel)
- return scaleCombatFormulaValues(1.40, formulaFunction(player, level, maglevel))
+ return scaleCombatFormulaValues(1.50, formulaFunction(player, level, maglevel))
 end
 
 function onGetFormulaValuesWOD(player, level, maglevel)
- return scaleCombatFormulaValues(1.40, formulaFunction(player, level, maglevel))
+ return scaleCombatFormulaValues(1.50, formulaFunction(player, level, maglevel))
 end
 
 local function createCombat(area, combatFunc)

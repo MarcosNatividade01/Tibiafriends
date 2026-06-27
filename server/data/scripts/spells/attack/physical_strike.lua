@@ -7,7 +7,7 @@ combat:setParameter(COMBAT_PARAM_BLOCKARMOR, 1)
 function onGetFormulaValues(player, level, maglevel)
 	local min = (level / 5) + (maglevel * 1.403) + 8
 	local max = (level / 5) + (maglevel * 2.203) + 13
- return scaleCombatFormulaValues(1.40, -min, -max)
+ return scaleCombatFormulaValues(1.50, -min, -max)
 end
 
 combat:setCallback(CALLBACK_PARAM_LEVELMAGICVALUE, "onGetFormulaValues")

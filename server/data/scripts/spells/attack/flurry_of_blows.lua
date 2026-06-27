@@ -28,7 +28,7 @@ function onGetFormulaValues(player, skill, weaponDamage, attackFactor)
 	local attackValue = calculateAttackValue(player, skill, weaponDamage)
 	local spellFactor = 0.6
 	local total = (basePower * attackValue) / 100 + (spellFactor * attackValue)
- return scaleCombatFormulaValues(1.40, -total * 0.9, -total * 1.1)
+ return scaleCombatFormulaValues(1.50, -total * 0.9, -total * 1.1)
 end
 
 onGetFormulaValuesEnergy = loadstring(string.dump(onGetFormulaValues))

@@ -129,7 +129,7 @@ local function onGetFormulaValues(player, weaponDamage)
 	local minDamage = -total * 0.9
 	local maxDamage = -total * 1.1
 
-	return minDamage, maxDamage
+	return scaleCombatFormulaValues(1.50, minDamage, maxDamage)
 end
 
 local spell = Spell("instant")

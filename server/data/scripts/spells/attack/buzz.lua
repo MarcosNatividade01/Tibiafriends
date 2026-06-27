@@ -6,7 +6,7 @@ combat:setParameter(COMBAT_PARAM_DISTANCEEFFECT, CONST_ANI_ENERGY)
 function onGetFormulaValues(player, level, maglevel)
 	local min = (level / 5) + (maglevel * 0.4) + 3
 	local max = (level / 5) + (maglevel * 0.7) + 5
- return scaleCombatFormulaValues(1.40, -min, -max)
+ return scaleCombatFormulaValues(1.50, -min, -max)
 end
 
 combat:setCallback(CALLBACK_PARAM_LEVELMAGICVALUE, "onGetFormulaValues")
