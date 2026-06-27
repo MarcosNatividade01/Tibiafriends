@@ -7,7 +7,6 @@ function syncPlayerSpellsByLevel(player)
 
 		if spell.name
 			and (requiredLevel > 0 or requiredMagicLevel > 0)
-			and player:canLearnSpell(spell.name)
 			and not player:hasLearnedSpell(spell.name) then
 			player:learnSpell(spell.name)
 			unlocked = unlocked + 1
