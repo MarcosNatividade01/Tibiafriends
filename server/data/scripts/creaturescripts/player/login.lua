@@ -120,6 +120,7 @@ function playerLoginGlobal.onLogin(player)
 
 	player:setStaminaXpBoost(player:getFinalBonusStamina() * 100)
 	player:getFinalLowLevelBonus()
+	syncPlayerSpellsByLevel(player)
 
 	-- Updates the player's VIP status and executes corresponding actions if applicable.
 	if configManager.getBoolean(configKeys.VIP_SYSTEM_ENABLED) then
