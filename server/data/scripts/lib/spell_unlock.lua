@@ -1,5 +1,7 @@
 function syncPlayerSpellsByLevel(player)
 	local unlocked = 0
+	local playerLevel = player:getLevel()
+	local playerMagicLevel = player:getBaseMagicLevel()
 
 	for _, spell in ipairs(player:getInstantSpells()) do
 		local requiredLevel = spell.level or 0
@@ -7,6 +9,8 @@ function syncPlayerSpellsByLevel(player)
 
 		if spell.name
 			and (requiredLevel > 0 or requiredMagicLevel > 0)
+			and playerLevel >= requiredLevel
+			and playerMagicLevel >= requiredMagicLevel
 			and not player:hasLearnedSpell(spell.name) then
 			player:learnSpell(spell.name)
 			unlocked = unlocked + 1
