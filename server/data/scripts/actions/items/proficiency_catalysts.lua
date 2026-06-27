@@ -1,8 +1,9 @@
 local proficiencyExperienceMultiplier = 5
+local maximumProficiencyExperiencePerUse = 25000
 
 local config = {
-	[51588] = { gainWeaponProficiencyExperience = 25000 * proficiencyExperienceMultiplier },
-	[51589] = { gainWeaponProficiencyExperience = 100000 * proficiencyExperienceMultiplier },
+	[51588] = { gainWeaponProficiencyExperience = math.min(25000 * proficiencyExperienceMultiplier, maximumProficiencyExperiencePerUse) },
+	[51589] = { gainWeaponProficiencyExperience = math.min(100000 * proficiencyExperienceMultiplier, maximumProficiencyExperiencePerUse) },
 }
 
 local proficiencyCatalysts = Action()
