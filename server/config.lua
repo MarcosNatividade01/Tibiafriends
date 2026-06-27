@@ -504,7 +504,7 @@ maxMessageBuffer = 4
 allowWalkthrough = true
 coinPacketSize = 25
 coinImagesURL = "http://" .. ip .. "/images/store/"
-classicAttackSpeed = false
+classicAttackSpeed = true
 showScriptsLogInConsole = false
 -- time to suppress negative conditions after being affected by them (ms)
 minDelayBetweenConditions = 0
@@ -588,7 +588,7 @@ rateSoulRegen = 1.5
 rateSoulRegenSpeed = 1.0
 
 rateSpellCooldown = 1.0
-rateAttackSpeed = 2.0
+rateAttackSpeed = 1.0
 rateOfflineTrainingSpeed = rateAttackSpeed
 rateExerciseTrainingSpeed = rateAttackSpeed
 
